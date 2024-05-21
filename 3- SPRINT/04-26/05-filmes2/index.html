@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Exercício 05</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Vetores</h1>
+
+        <div class="divInput">
+
+            <p>Insira os seus filmes favoritos</p>
+            <input type="text" placeholder="Ex.: Vingadores: Guerra Infinita" id="inp_filme">
+
+            <button onclick="cadastrar()">Cadastrar Filme</button>
+
+        </div>
+
+        <div id="output"></div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    // VETOR LISTA DE FILMES
+
+    var lista_filmes = [];
+
+    function cadastrar() {
+
+
+        // INPUTS
+
+        var filme = inp_filme.value;
+
+
+        // ADICIONAR FILME
+
+        lista_filmes.push(filme);
+
+
+        // PRIMEIRO FILME
+
+        var primeiro_filme = lista_filmes[0];
+
+
+        // TERCEIRO FILME
+
+        var terceiro_filme = lista_filmes[2];
+
+
+        // LIMPANDO A DIV
+
+        output.innerHTML = ``;
+
+
+        // VERIFICAÇÕES
+
+        if (terceiro_filme) {
+
+            output.innerHTML += `<p>Seu filme favorito: ${primeiro_filme}</p>`;
+            output.innerHTML += `<p>Seu 3º filme favorito: ${terceiro_filme}</p>`;
+            output.innerHTML += `<p>Total de filmes cadastrados: ${lista_filmes.length}</p>`;
+
+        }
+
+        else {
+
+            output.innerHTML += `<p>Seu filme favorito: ${primeiro_filme}</p>`;
+            output.innerHTML += `<p>Seu 3º filme favorito: Ainda não existe</p>`;
+            output.innerHTML += `<p>Total de filmes cadastrados: ${lista_filmes.length}</p>`;
+
+        }
+
+    }
+
+</script>

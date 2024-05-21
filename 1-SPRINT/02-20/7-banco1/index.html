@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!--METADATAS-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Kauan Gabriel">
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <!--TITLE-->
+    <title>Exercício 7</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Transações Bancarias</h1>
+
+        <div class="botoes">
+
+            <button class="receber" onclick="receber()">Receber 100</button>
+            <button class="pagar" onclick="pagar()">Pagar 50</button>
+
+        </div>
+
+    </div>
+    <center>
+        <br><br>
+
+    </center>
+</body>
+</html>
+
+<script>
+    var saldo = 0;
+
+    function receber() {
+        saldo +=100;
+        alert('Transferência de R$100 recebida! Saldo atual: R$'+ saldo);
+    }
+
+    function pagar() {
+        if(saldo <= 0) {
+            alert('Pagamento não autorizado!')
+        } else {
+            saldo -= 50;
+            alert('Pagamento de R$50 efetuado! Saldo atual: R$'+ saldo);
+        }
+        
+    }
+</script>
