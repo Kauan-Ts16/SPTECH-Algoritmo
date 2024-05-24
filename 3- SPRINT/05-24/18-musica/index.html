@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- METADATAS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- TITLE -->
+    <title>Exercício - 18</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Vetores</h1>
+
+        <div class="divInput">
+
+            <p>Informe os nomes das musicas que mais gosta</p>
+            <input type="text" placeholder="Ex.: Travis Scott - Trance" id="inp_musica">
+
+            <button onclick="cadastrar()">Cadastrar</button>
+            <button onclick="exibir()">Exibir</button>
+
+
+            <div>
+                <input type="number" placeholder="Ex.: 1" id="inp_inicio">
+                <input type="number" placeholder="Ex.: 5" id="inp_fim">
+                <button onclick="filtrar()">Filtrar</button>
+            </div>
+
+        </div>
+
+        <div id="output"></div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+    // VETOR - LISTA DE MUSICAS
+
+    var lista_musicas = [];
+
+
+    function cadastrar() {
+
+        // INPUTS
+
+        var musica = inp_musica.value;
+
+        // ADICIONANDO MUSICA A LISTA
+
+        lista_musicas.push(musica);
+        
+    }
+
+    
+    function exibir() {
+
+        output.innerHTML = '';
+
+        output.innerHTML = `<h2>Lista de Musicas</h2> <br>`;
+        
+        for (var i = 0; i < lista_musicas.length; i++) {
+
+            output.innerHTML += `<p>${i + 1}º Musica - ${lista_musicas[i]}</p>`;
+
+        }
+
+    }
+
+
+    function filtrar() {
+
+        // INPUTS
+
+        var inicio = Number(inp_inicio.value) - 1;
+        var fim = Number(inp_fim.value) - 1;
+
+        output.innerHTML = '';
+
+        output.innerHTML = `<h2>Lista de Musicas</h2> <br>`;
+
+        // VERIFICAÇÕES
+
+        for (var i = inicio; i <= fim; i++) {
+
+            if (lista_musicas[i]) {
+                
+                output.innerHTML += `<p>${i + 1}º Musica - ${lista_musicas[i]}</p>`;
+            }
+
+        }
+        
+    }
+
+</script>

@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e2eafb;
+    font-family: monospace;
+}
+
+.container  {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.708);
+}
+
+.divInput {
+    width: 100%;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.divInput p {
+    font-size: 1rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    background-color:  #7fd3d3;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.divInput div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.divInput div input {
+    width: 30%;
+}
+
+.divInput div select {
+    width: 30%;
+}
+
+.divInput div button {
+    width: 30%;
+}
+
+#output {
+    padding: 0 40px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+#output p {
+    text-align: left;
+    margin-top: 5px;
+}
+
+.menor {
+    color: red;
+}
+
+.maior {
+    color: green;
+}

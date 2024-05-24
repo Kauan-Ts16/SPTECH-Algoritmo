@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-bt">
+
+<head>
+    <!-- METADATAS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- TITLE -->
+    <title>Exercício 20</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Vetores</h1>
+
+        <div class="divInput">
+
+            <p>Insira o nome e o preço do Produto</p>
+            <input type="text" placeholder="Ex.: DualSense 5" id="inp_produto">
+            <input type="number" placeholder="Ex.: 499.99" id="inp_preco">
+
+            <button onclick="cadastrar()">Cadastrar</button>
+            <button onclick="atualizar()">Atualizar Estoque</button>
+
+            <div>
+                <input type="number" placeholder="Ex.: 50.00" id="inp_num">
+                <select id="s_preco">
+                    <option value="#">Selecione</option>
+                    <option>Maior</option>
+                    <option>Menor</option>
+                </select>
+
+                <button onclick="filtrar()">Filtrar</button>
+            </div>
+
+        </div>
+
+        <div id="output"></div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    // VETOR - LISTA DE PRODUTOS
+
+    var lista_produtos = [];
+
+    // VETOR - LISTA DE PREÇOS
+
+    var lista_preco = [];
+
+    var total = 0;
+
+
+    function cadastrar() {
+
+        // INPUTS
+
+        var produto = inp_produto.value;
+        var preco = Number(inp_preco.value);
+
+
+        // VERIFICAÇÕES
+
+        if (produto.length >= 3 && preco >= 0) {
+
+            lista_produtos.push(produto);
+            lista_preco.push(preco);
+            total += preco;
+
+            output.innerHTML = `<h3 class="maior">Cadastrado com Sucesso!</h3>`;
+
+        }
+
+        else {
+
+            output.innerHTML = `<h3 class="menor">Erro ao Cadastrar!</h3>`;
+
+        }
+
+    }
+
+
+    function atualizar() {
+
+        // INPUTS
+
+        output.innerHTML = ``;
+
+        output.innerHTML = `<h3>Você tem ${lista_produtos.length} produtos cadastrados em Estoque.</h3> <br>`;
+
+        // VERIFICAÇÕES
+
+        if (lista_produtos.length > 0) {
+
+            for (var i = 0; i < lista_produtos.length; i++) {
+
+                var precoAtual = lista_preco[i]
+
+                output.innerHTML += `<p>${i + 1}. ${lista_produtos[i]} - R$${precoAtual.toFixed(2)}</p>`;
+
+            }
+
+            output.innerHTML += `<br><p><b>Seu estoque vale R$${total.toFixed(2)}</b></p>`;
+
+        }
+
+        else {
+
+            output.innerHTML = `<h3 class="menor">Não existem produtos cadastrados!</h3>`;
+
+        }
+
+    }
+
+
+    function filtrar() {
+
+        // INPUTS
+
+        var num = Number(inp_num.value);
+        var select = s_preco.value;
+
+        var maior = false;
+        var precoAtual = 0
+
+
+        // VERIFICAÇÕES
+
+        if (lista_preco.length > 0) {
+
+            if (num >= 0 && select != '#') {
+
+                output.innerHTML = ``;
+
+                output.innerHTML = `<h3>Você tem ${lista_produtos.length} produtos cadastrados em Estoque.</h3> <br>`;
+
+                if (select == 'Maior') {
+
+                    maior = true
+
+                }
+
+                for (var i = 0; i < lista_preco.length; i++) {
+
+                    if (maior == true) {
+
+                        if (lista_preco[i] >= num) {
+
+                            precoAtual = lista_preco[i]
+
+                            output.innerHTML += `<p>${i + 1}. ${lista_produtos[i]} -  R$${precoAtual.toFixed(2)}</p>`;
+
+                        }
+                    }
+
+                    else {
+
+                        if (lista_preco[i] <= num) {
+
+                            precoAtual = lista_preco[i]
+
+                            output.innerHTML += `<p>${i + 1}. ${lista_produtos[i]} -  R$${precoAtual.toFixed(2)}</p>`;
+
+                        }
+                    }
+
+                }
+
+            }
+
+            else {
+
+                alert('Preencha os campos corretamente!');
+
+            }
+
+        }
+
+        else {
+
+            output.innerHTML = `<h3 class="menor">Não existem produtos cadastrados!</h3>`;
+
+        }
+
+    }
+
+</script>

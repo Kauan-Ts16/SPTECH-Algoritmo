@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- METADATAS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- TITLE -->
+    <title>Exercício - 19</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Vetores</h1>
+
+        <div class="divInput">
+
+            <p>Insira os nomes de cada filme que você já assistiu</p>
+            <input type="text" placeholder="Ex.: Vingadores - Guerra Infinita" id="inp_filme">
+
+            <button onclick="cadastrar()">Cadastrar</button>
+            <button onclick="listar()">Listar Filmes</button>
+
+            <div>
+                <input type="number" placeholder="Ex.: 1" id="inp_inicio">
+                <input type="number" placeholder="Ex.: 5" id="inp_fim">
+                <button onclick="filtrar()">Filtrar</button>
+            </div>
+
+        </div>
+
+        <div id="output"></div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    // VETOR - LISTA DE FILMES
+
+    var lista_filmes = [];
+
+
+    function cadastrar() {
+
+        // INPUTS
+
+        var filme = inp_filme.value;
+
+
+        // ADICIONANDO FILME A LISTA
+
+        lista_filmes.push(filme);
+
+        output.innerHTML = `Você já assistiu ${lista_filmes.length} filmes.`;
+
+    }
+
+
+    function listar() {
+
+        output.innerHTML = ``;
+
+        output.innerHTML = `<h2>Lista de Filmes</h2> <br>`;
+
+
+        // VERIFICAÇÕES
+
+        for (var i = lista_filmes.length - 1; i >= 0; i--) {
+
+            output.innerHTML += `<p>${i + 1}º Filme - ${lista_filmes[i]}</p>`;
+
+        }
+
+    }
+
+
+    function filtrar() {
+
+        // INPUTS
+
+        var inicio = Number(inp_inicio.value) - 1;
+        var fim = Number(inp_fim.value) - 1;
+
+        output.innerHTML = '';
+
+        output.innerHTML = `<h2>Lista de Filmes</h2> <br>`;
+
+        // VERIFICAÇÕES
+
+        for (var i = fim; i >= inicio; i--) {
+
+            if (lista_filmes[i]) {
+
+                output.innerHTML += `<p>${i + 1}º Filme - ${lista_filmes[i]}</p>`;
+            }
+
+        }
+
+    }
+
+
+</script>
