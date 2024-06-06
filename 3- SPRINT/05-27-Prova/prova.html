@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tênis Clube SPTECH</title>
+  <style>
+    body {
+      display: flex;
+      align-items: stretch;
+    }
+
+    body div:first-child,
+    body div:nth-of-type(2) {
+      padding: 8px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+
+    body div:nth-of-type(2) {
+      flex-grow: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label for="input_qtd_partidas">
+      Rodadas máximas:
+      <input id="input_qtd_partidas" /><br />
+    </label>
+
+    <button onclick="realizar_partida()">Realizar partida</button>
+
+    <h3>Informe as partidas que deseja relembrar</h3>
+
+    <label for="input_inicio_intervalo">Início:</label>
+    <input id="input_inicio_intervalo" />
+    <label for="input_fim_intervalo">Fim:</label>
+    <input id="input_fim_intervalo" />
+
+    <button onclick="relembrar_partidas()">Relembrar</button>
+  </div>
+  <div>
+    <h3>Painel</h3>
+    <div id="div_painel"></div>
+  </div>
+</body>
+
+</html>
+<script>
+
+  // VETOR - LISTA DE RODADAS
+
+  var lista_j1 = [];
+  var lista_j2 = [];
+
+
+
+  function realizar_partida() {
+
+    // INPUTS
+
+    var rodadasMaximas = input_qtd_partidas.value;
+
+
+    // VARIAVEIS
+
+    var pontosJ1 = Number(0);
+    var pontosJ2 = Number(0);
+
+    var pontosFinaisj1 = Number(0);
+    var pontosFinaisj2 = Number(0);
+
+     var rodadas = 0;
+
+
+    div_painel.innerHTML = '';
+
+
+    // VERIFICAÇÕES
+
+    if (rodadasMaximas > 0) {
+
+
+      // RODADAS
+
+      
+      for (var i = 0; i <= rodadasMaximas; i++) {
+
+
+
+        if (i < rodadasMaximas) {
+
+          // GERANDO PONTOS
+
+          pontosJ1 = Number(Math.random() * 10);
+          pontosJ2 = Number(Math.random() * 10);
+
+
+          // SALVANDO PONTOS
+
+          lista_j1.push(pontosJ1.toFixed(0));
+          lista_j2.push(pontosJ2.toFixed(0));
+
+          rodadas++;
+
+          console.log(rodadas);
+
+
+          // SOMA DOS PONTOS DE CADA JOGADOR
+
+          pontosFinaisj1 += pontosJ1;
+          pontosFinaisj2 += pontosJ2;
+
+          div_painel.innerHTML += `<p>------------------------------</p><p><b>Rodada:</b> ${i + 1}</p> <p>jogador 1: ${pontosJ1.toFixed(0)}</p> <p>jogador 2: ${pontosJ2.toFixed(0)}</p>`
+
+        }
+
+        else {
+
+          alert('numero de partidas excedido!');
+
+        }
+
+      }
+
+
+      div_painel.innerHTML += `<p>------------------------------</p><p><b>Total Jogador 1:</b> ${pontosFinaisj1.toFixed(0)}</p>`;
+      div_painel.innerHTML += `<p>------------------------------</p><p><b>Total Jogador 2:</b> ${pontosFinaisj2.toFixed(0)}</p>`;
+
+
+    }
+
+    else {
+
+      alert('Número de partidas inválido');
+
+    }
+
+  }
+
+
+  function relembrar_partidas() {
+
+    // INPUTS
+
+    var inicio = input_inicio_intervalo.value;
+    var fim = input_fim_intervalo.value;
+
+
+    div_painel.innerHTML = '';
+
+
+    // VERIFICAÇÕES
+
+    if (inicio > 0 && fim >= inicio) {
+
+      for (var i = inicio - 1; i <= fim - 1; i++) {
+
+
+        div_painel.innerHTML += `<p>Rodada: ${i + 1}</p> <p>jogador 1: ${lista_j1[i]}</p> <p>jogador 2: ${lista_j2[i]}</p>`
+
+
+      }
+
+    }
+
+    else {
+
+      alert('Preencha os campos corretamente');
+
+    }
+
+
+  }
+
+</script>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- METADATAS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Kauan Gabriel">
+    <!-- TITLE -->
+    <title>Atividade Avaliativa II</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Atividade Avaliativa II</h1>
+
+        <!-- TELA 1 -->
+
+        <div class="divInput" id="tela1" style="display: block;">
+
+            <p>Ingrediente</p>
+            <input type="text" placeholder="Ex.: " id="inp_ingrediente">
+
+            <p>Peso em gramas</p>
+            <input type="number" placeholder="Ex.: " id="inp_gramas">
+
+            <p>Preço por kilo</p>
+            <input type="number" placeholder="Ex.: " id="inp_preco">
+
+            <button onclick="adicionarIngrediente()">Adicionar Ingrediente na Blend</button>
+
+            <p>Nome do Hamburguer</p>
+            <input type="text" placeholder="Ex.: " id="inp_nome">
+
+            <button onclick="prepararBlend()">Preparar Blend e Registrar</button> <br><br>
+
+            <button onclick="montarCardapio()">Montar Cardápio</button>
+
+        </div>
+
+
+        <!-- TELA 2 -->
+
+        <div class="divInput" id="tela2" style="display: none;">
+
+            <p>Tipo de Hamburguer</p>
+            <input type="text" placeholder="" id="inp_tipo">
+
+            <p>Quantidade de Hamburgueres</p>
+            <input type="number" id="inp_quantidade">
+
+            <p>Queijo:</p>
+            <select id="s_queijo">
+                <option>Sem queijo</option>
+                <option>Mussarela</option>
+                <option>Prato</option>
+                <option>Cheddar</option>
+            </select>
+
+            <p>Cebola</p>
+            <select id="s_cebola">
+                <option>Não</option>
+                <option>Sim</option>
+            </select>
+
+            <p>Alface</p>
+            <select id="s_alface">
+                <option>Não</option>
+                <option>Sim</option>
+            </select>
+
+            <p>Tomate</p>
+            <select id="s_tomate">
+                <option>Não</option>
+                <option>Sim</option>
+            </select> <br> <br>
+
+            <button onclick="adicionarLanche()">Adicionar Lanche</button>
+
+        </div>
+
+
+        <!-- RESPOSTA -->
+
+        <div id="output"></div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    // VETOR - LISTAS DE INGREDIENTES
+
+    var listaIngredientes = [];
+
+    // VETOR - LISTA DE PESO EM GRAMAS
+
+    var listaPesoGramas = [];
+
+    // VETOR - LISTA DE PREÇO POR KILO
+
+    var listaValorKilo = [];
+
+
+    // VETOR - LISTA DE HAMBURGUER
+
+    var listaNomeHamburguer = [];
+
+    // VETOR - LISTA DE PESO DO HAMBURGUER
+
+    var listaPesoHamburguer = [];
+
+    // VETOR - LISTA DE PREÇO DO HAMBURGUER
+
+    var listaPrecoHamburguer = [];
+
+
+    function adicionarIngrediente() {
+
+        // INPUTS
+
+        var ingrediente = inp_ingrediente.value;
+
+        var pesoGramas = Number(inp_gramas.value);
+
+        var precoKilo = Number(inp_preco.value);
+
+        var ingredienteExiste = false;
+
+
+        // VERIFICAÇÕES
+
+        // CAMPOS PREENCHIDOS CORRETAMENTE
+
+        if (ingrediente != '' && (pesoGramas != '' && pesoGramas != 0) && (precoKilo != '' && precoKilo != 0)) {
+
+
+            // PERCORRE A LISTA E VERIFICA SE O INGREDIENTE EXISTE
+
+            for (var i = 0; i < listaIngredientes.length; i++) {
+
+                // INGREDIENTE EXISTE - 'ingredienteExiste = true'
+
+                if (listaIngredientes[i] == ingrediente) {
+
+                    ingredienteExiste = true;
+
+                    break;
+
+                }
+
+            }
+
+
+            // INGREDIENTE EXISTE
+
+            if (ingredienteExiste == true) {
+
+                output.innerHTML = `<p style="color: red;"><b>O ingrediente '${ingrediente}' já foi adicionado nesta mistura!</b></p>`;
+
+            }
+
+            // CENARIO CONTRÁRIO - INGREDIENTE NÃO EXISTE
+
+            else {
+
+                listaIngredientes.push(ingrediente);
+                listaPesoGramas.push(pesoGramas);
+                listaValorKilo.push(precoKilo);
+
+                output.innerHTML = `<p style="color: green;">Adicionados ${pesoGramas} gramas de '${ingrediente}' no blend do hamburguer!</p>`;
+
+            }
+
+        }
+
+        // CENARIO CONTRÁRIO - CAMPOS VAZIOS OU COM VALOR '0'
+
+        else {
+
+            output.innerHTML = `<p style="color: red;"><b>Preencha os campos corretamente!</b></p>`
+
+        }
+
+    }
+
+
+    function prepararBlend() {
+
+        // INPUTS
+
+        var nome = inp_nome.value;
+
+
+        // VARIAVEIS
+
+        var precoFinalIngrediente = 0;
+
+        var precoHamburguer = 0;
+        var pesoHamburguer = 0;
+
+
+        // VERIFICAÇÕES
+
+        if (nome != "" && listaIngredientes.length >= 2) {
+
+            output.innerHTML = `<h1>Preparando Novo Hamburguer</h1>`;
+
+            for (var i = 0; i < listaIngredientes.length; i++) {
+
+                precoFinalIngrediente = Number((listaPesoGramas[i] * listaValorKilo[i]) / 1000).toFixed(1);
+                precoHamburguer += Number(precoFinalIngrediente);
+                pesoHamburguer += listaPesoGramas[i];
+
+                output.innerHTML += `<p>${i + 1} - Ingrediente: ${listaIngredientes[i]} - Peso: ${listaPesoGramas[i]} - Preço KG: ${listaValorKilo[i]} - Preço Final: <b>R$ ${precoFinalIngrediente}</b></p>`;
+
+            }
+
+
+            // ADICIONANDO NOME DO HAMBURGUER, PESO E PREÇO
+
+            listaNomeHamburguer.push(nome);
+            listaPesoHamburguer.push(pesoHamburguer);
+            listaPrecoHamburguer.push(precoHamburguer);
+
+
+            output.innerHTML += `<h1>Informações do Hamburguer registrado no Catálogo:</h1> <p>Nome: <b>${nome}</b></p> <p>Peso Total: <b>${pesoHamburguer}</b>g</p> <p>Preço Total: <b>R$ ${precoHamburguer}</b></p>`;
+
+
+        }
+
+        else {
+
+            output.innerHTML = `<p style="color: red;"><b>Verifique se o Hamburguer tem nome ou pelo menos 2 ingredientes no seu Blend!</b></p>`;
+
+        }
+
+    }
+
+
+    function montarCardapio() {
+
+
+        // VERIFICAÇÕES
+
+        if (listaNomeHamburguer.length > 0) {
+
+            output.innerHTML = ``;
+            tela1.style.display = 'none'
+            tela2.style.display = 'block'
+
+        }
+
+        else {
+
+            output.innerHTML = `<p style="color: red;"><b>Adicione ao menos um Blend no Cardápio!</b></p>`;
+
+        }
+
+    }
+
+
+    function adicionarLanche() {
+
+
+        // INPUTS
+
+        var tipoHamburguer = inp_tipo.value;
+
+        var quantidade = Number(inp_quantidade.value);
+
+        var queijo = s_queijo.value;
+
+        var cebola = s_cebola.value;
+
+        var alface = s_alface.value;
+
+        var tomate = s_tomate.value;
+
+
+        // VARIAVEIS
+
+        var hamburguerExiste = false;
+
+        var valorHamburguer = 0;
+
+        var pesoHamburguer = 0;
+
+        var valorFInal = 0;
+
+        var valorMussarela = Number(2);
+
+        var valorPrato = Number(2.5);
+
+        var valorCheddar = Number(3);
+
+        var valorCebola = Number(1.5);
+
+        var valorAlface = Number(1.75);
+
+        var valorTomate = Number(2);
+        
+
+        // VERIFICAÇÕES
+
+        if (tipoHamburguer != '' && quantidade > 0 ) {
+
+
+            // PROCURA O HAMBURGUER INSERIDO 
+
+            for (var i = 0; i < listaNomeHamburguer.length; i++) {
+                
+                if (tipoHamburguer == listaNomeHamburguer[i]) {
+                    
+                    hamburguerExiste = true;
+                    valorHamburguer = listaPrecoHamburguer[i];
+                    pesoHamburguer = listaPesoHamburguer[i];
+
+                    break;
+
+                }
+
+            }
+
+
+            // VERIFICA SE ELE EXISE
+
+            if (hamburguerExiste == true) {
+                
+
+                // CALCULA O VALOR QUE SERÁ COBRADO POR HAMBURGUER
+                
+                valorFInal = valorHamburguer * quantidade;
+                
+
+                // VERIFICA SE FOI ESCOLHIDO ALGUM TIPO DE QUEIJO
+
+                if (queijo == 'Mussarela') {
+
+                    valorFInal += valorMussarela;
+                    
+                }
+
+                else if (queijo == 'Prato') {
+
+                    valorFInal += valorPrato;
+                    
+                }
+
+                else if (queijo == 'Cheddar') {
+
+                    valorFInal += valorCheddar;
+
+                }
+
+
+                // VERIFICA SE FOI SELECIONADO ALGUM ADICIONAL (CEBOLA, ALFACE, TOMATE)
+
+                if (cebola == 'Sim') {
+                    
+                    valorFInal += valorCebola;
+
+                }
+
+                if (alface == 'Sim') {
+                    
+                    valorFInal += valorAlface;
+
+                }
+
+                if (tomate == 'Sim') {
+                    
+                    valorFInal += valorTomate; 
+
+                }
+
+
+                // MENSAGEM DO SISTEMA
+
+                output.innerHTML = 
+                `
+                    <p>Tipo do Hamburguer: <b>${tipoHamburguer}</b> (<b>${pesoHamburguer}</b>g / R$ <b>${valorHamburguer}</b>)</p>
+                    <p>Quantidade de Hamburgueres: <b>${quantidade}</b>x</p>
+                    <p>Queijo: <b>${queijo}</b></p>
+                    <p>Cebola: <b>${cebola}</b></p>
+                    <p>Alface: <b>${alface}</b></p>
+                    <p>Tomate: <b>${tomate}</b></p> <br>
+
+                    <p>Preço Final do lanche: R$ <b>${valorFInal}</b></p>
+                `;
+
+            }
+
+
+            // CENÁRIO CONTRÁRIO - O HAMBURGUER INSERIDO NÃO EXISTE
+
+            else {
+
+                output.innerHTML = `<p style="color: red;"><b>Não temos esse hamburguer!</b></p>`
+
+            }
+            
+        }
+
+        else {
+
+            output.innerHTML = `<p style="color: red;"><b>Informe corretamente o tipo de Hamburguer e a quantidade!</b></p>`;
+
+        }
+
+
+    }
+
+</script>
